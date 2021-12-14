@@ -1,12 +1,23 @@
-create database employeeDB;
+DROP DATABASE IF EXISTS employeeDB;
+CREATE DATABASE employeeDB;
 
-use emplyeeDB;
+USE employeeDB;
 
-create table employee(
-    id int primary key auto_increment,
-    name varchar(40),
-    role_id int
-
+CREATE TABLE departments (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    dep_name VARCHAR(40) NOT NULL
 );
 
-insert into employee (id, name, role_id) values ();
+CREATE TABLE role (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(40) NOT NULL,
+    salaray INT NOT NULL,
+    department_id INT
+);
+
+CREATE TABLE employee (
+    id int NOT NULL primary key auto_increment,
+    first_name varchar(40),
+    last_name varchar(40),
+    role_id int
+);

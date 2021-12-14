@@ -2,5 +2,24 @@
   "dependencies": {
     "inquirer": "^8.2.0",
     "mysql2": "^2.3.3"
-  }
+  },
+  "name": "unit-12-homework",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattReynolds53/Employee-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MattReynolds53/Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/MattReynolds53/Employee-Tracker#readme",
+  "description": ""
 }
