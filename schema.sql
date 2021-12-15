@@ -19,6 +19,6 @@ CREATE TABLE employee (
     id int NOT NULL primary key auto_increment,
     first_name VARCHAR(40),
     last_name VARCHAR(40),
-    role_id VARCHAR(40),
-    manager_id INT
+    role_id VARCHAR(40)
+    -- manager_id INT NOT NULL
 );

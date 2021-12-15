@@ -38,7 +38,7 @@ function startProgram() {
         addEmployee();
       } else if (answer.choice === "Update Employee Role") {
         updateEmployeeRole();
-      } else if (answer.choice === "View All Role") {
+      } else if (answer.choice === "View All Roles") {
         viewRoles();
       } else if (answer.choice === "Add Role") {
         addRole();
@@ -50,7 +50,7 @@ function startProgram() {
     });
 }
 
-async function viewEmployees() {
+function viewEmployees() {
   connection.query("SELECT * FROM departments INNER JOIN employee ON role_id = departments.id INNER JOIN role ON department_id = employee.id", (err, res) => {
     if (err) throw err;
     console.table(res);
@@ -108,20 +108,20 @@ async function addEmployee() {
                             role_id: employeeRole.roleID
                         }
                     )
-                    inquirer.prompt([
-                        {
-                            type: "input",
-                            name: "managerID",
-                            message: "What is the employee's manager ID?"
-                        }
-                    ]).then(employeeManager => {
-                        connection.query("INSERT into employee SET ?;",
-                            {
-                                manager_id: employeeManager.managerID
-                            }
-                        )
-                        startProgram();
-                    })
+                    // inquirer.prompt([
+                    //     {
+                    //         type: "input",
+                    //         name: "managerID",
+                    //         message: "What is the employee's manager ID?"
+                    //     }
+                    // ]).then(employeeManager => {
+                    //     connection.query("INSERT into employee SET ?;",
+                    //         {
+                    //             manager_id: employeeManager.managerID
+                    //         }
+                    //     )
+                    // })
+                    startProgram();
                 })
             })
         })
@@ -129,127 +129,58 @@ async function addEmployee() {
     })
 }
 
-async function updateEmployeeRole() {
-  // create the connection
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "employeedb",
-  });
-  // query database
-  const data = await connection.execute("select * from employee;");
-
-  data.map((employee) => ({ name: employee.name, value: employee }));
-
-  console.log(newChoices);
-
-  const { choice } = await inquirer.prompt([
-    {
-      name: "choice",
-      type: "list",
-      message: "Which employee role do you want to update?",
-      chocies: newChoices,
-    },
-  ]);
+function updateEmployeeRole() {
+  
 }
 
-async function viewRoles() {
-  // create the connection
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "employeedb",
-  });
-  // query database
-  const data = await connection.execute("select * from employee;");
-
-  data.map((employee) => ({ name: employee.name, value: employee }));
-
-  console.table(data);
-
-  console.log(newChoices);
-
-  const { choice } = await inquirer.prompt([
-    {
-      name: "choice",
-      type: "list",
-      message: "Which employee role do you want to update?",
-      chocies: newChoices,
-    },
-  ]);
+function viewRoles() {
+    connection.query("SELECT title, id, department_id, salary FROM role", (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        startProgram();
+      });
 }
 
-async function addRole() {
-  // create the connection
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "employeedb",
-  });
-  // query database
-  const data = await connection.execute("select * from employee;");
-
-  data.map((employee) => ({ name: employee.name, value: employee }));
-
-  console.log(newChoices);
-
-  const { choice } = await inquirer.prompt([
-    {
-      name: "choice",
-      type: "list",
-      message: "Which employee role do you want to update?",
-      chocies: newChoices,
-    },
-  ]);
+function addRole() {
+  
 }
 
-async function viewDepartments() {
-  // create the connection
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "employeedb",
-  });
-  // query database
-  const data = await connection.execute("select * from employee;");
-
-  data.map((employee) => ({ name: employee.name, value: employee }));
-
-  // Added view table function for view [blank] choices
-  console.table(data);
-
-  console.log(newChoices);
-
-  const { choice } = await inquirer.prompt([
-    {
-      name: "choice",
-      type: "list",
-      message: "Which employee role do you want to update?",
-      chocies: newChoices,
-    },
-  ]);
+function viewDepartments() {
+    connection.query("SELECT id, dep_name FROM departments", (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        startProgram();
+      });
 }
 
-async function addDepartment() {
-  // create the connection
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "employeedb",
-  });
-  // query database
-  const data = await connection.execute("select * from employee;");
-
-  data.map((employee) => ({ name: employee.name, value: employee }));
-
-  console.log(newChoices);
-
-  const { choice } = await inquirer.prompt([
-    {
-      name: "choice",
-      type: "list",
-      message: "Which employee role do you want to update?",
-      chocies: newChoices,
-    },
-  ]);
+function addDepartment() {
+  
 }
+
+
+
+// create the connection
+// const connection = await mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     database: "employeedb",
+//   });
+//   // query database
+//   const data = await connection.execute("select * from employee;");
+
+//   data.map((employee) => ({ name: employee.name, value: employee }));
+
+//   console.log(newChoices);
+
+//   const { choice } = await inquirer.prompt([
+//     {
+//       name: "choice",
+//       type: "list",
+//       message: "Which employee role do you want to update?",
+//       chocies: newChoices,
+//     },
+//   ]);
+
+
+// "INNER JOIN role ON department_id = employee.id"
+// "INNER JOIN departments ON department_id = departments.dep_name"
