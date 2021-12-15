@@ -36,6 +36,16 @@ function startProgram() {
         viewEmployees();
       } else if (answer.choice === "Add Employee") {
         addEmployee();
+      } else if (answer.choice === "Update Employee Role") {
+        updateEmployeeRole();
+      } else if (answer.choice === "View All Role") {
+        viewRoles();
+      } else if (answer.choice === "Add Role") {
+        addRole();
+      } else if (answer.choice === "View All Departments") {
+        viewDepartments();
+      } else {
+          addDepartment();
       }
     });
 }
@@ -57,20 +67,69 @@ async function addEmployee() {
         }
 
     ]).then(depAnswers => {
-        connection.query("INSERT into departments SET ?;",
+        connection.query("INSERT INTO departments SET ?;",
             {
-                dep_name : depAnswers.newDepartment
+                dep_name: depAnswers.newDepartment
             }
         )
         inquirer.prompt([
             {
-                type:"input",
+                type: "input",
+                name: "firstName",
+                message: "What is the employee's first name?"
             }
-        ])
+        ]).then(employeeFirst => {
+            connection.query("INSERT INTO employee SET ?;",
+                {
+                    first_name: employeeFirst.firstName
+                }
+            )
+            inquirer.prompt([
+                {
+                    type: "input",
+                    name: "lastName",
+                    message: "What is the employee's last name?"
+                }
+            ]).then(employeeLast => {
+                connection.query("INSERT INTO employee SET ?;",
+                    {
+                        last_name: employeeLast.lastName
+                    }
+                )
+                inquirer.prompt([
+                    {
+                        type: "input",
+                        name: "roleID",
+                        message: "What is the employee's role?"
+                    }
+                ]).then(employeeRole => {
+                    connection.query("INSERT INTO employee SET ?;",
+                        {
+                            role_id: employeeRole.roleID
+                        }
+                    )
+                    inquirer.prompt([
+                        {
+                            type: "input",
+                            name: "managerID",
+                            message: "What is the employee's manager ID?"
+                        }
+                    ]).then(employeeManager => {
+                        connection.query("INSERT into employee SET ?;",
+                            {
+                                manager_id: employeeManager.managerID
+                            }
+                        )
+                        startProgram();
+                    })
+                })
+            })
+        })
+        
     })
 }
 
-async function updateRole() {
+async function updateEmployeeRole() {
   // create the connection
   const connection = await mysql.createConnection({
     host: "localhost",
