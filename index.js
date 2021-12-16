@@ -144,9 +144,9 @@ function updateEmployeeRole() {
           message: "What is this employee's updated role?"
       }
   ]).then(employeeUpdate => {
-      connection.query("INSERT INTO employee SET ?;",
+      connection.query("INSERT INTO role SET ?;",
         {
-            role_id: employeeUpdate.employeeUpdate
+            title: employeeUpdate.employeeUpdate
         }
       )
       startProgram();
