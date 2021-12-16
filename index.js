@@ -58,7 +58,7 @@ function viewEmployees() {
   });
 }
 
-async function addEmployee() {
+function addEmployee() {
     inquirer.prompt([
         {
             type: "input",
@@ -127,10 +127,30 @@ async function addEmployee() {
         })
         
     })
+    
 }
 
 function updateEmployeeRole() {
-  
+  inquirer.prompt([
+      {
+          type: "list",
+          name: "employeeChoice",
+          message: "Which employee would you like to select?",
+          choices: ["1", "2", "3", "4", "5"],
+      },
+      {
+          type: "input",
+          name: "employeeUpdate",
+          message: "What is this employee's updated role?"
+      }
+  ]).then(employeeUpdate => {
+      connection.query("INSERT INTO employee SET ?;",
+        {
+            role_id: employeeUpdate.employeeUpdate
+        }
+      )
+      startProgram();
+  })
 }
 
 function viewRoles() {
@@ -142,7 +162,33 @@ function viewRoles() {
 }
 
 function addRole() {
-  
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "newRole",
+            message: "What is the name of this role?",
+        },
+        {
+            type: "input",
+            name: "roleSalary",
+            message: "What is this role's salary?"
+        },
+        {
+            type: "input",
+            name: "roleDepartment",
+            message: "What departments does this role belong to?"
+        },
+    ]).then(role => {
+        connection.query("INSERT INTO role SET ?;",
+          {
+              role_id: role.newRole,
+              salary: role.roleSalary,
+              dep_name: role.roleDepartment
+            
+          }
+        )
+        startProgram();
+    })
 }
 
 function viewDepartments() {
@@ -154,7 +200,20 @@ function viewDepartments() {
 }
 
 function addDepartment() {
-  
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "newDepartment",
+            message: "What is the name of the new department?",
+        },
+    ]).then(addDepartment => {
+        connection.query("INSERT INTO departments SET ?;",
+          {
+              dep_name: addDepartment.newDepartment
+          }
+        )
+        startProgram();
+    })
 }
 
 
