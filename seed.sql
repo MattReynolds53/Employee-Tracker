@@ -1,4 +1,4 @@
--- Copied this from our activities class folder
+
 INSERT INTO departments (dep_name) VALUES ("Software Engineer");
 INSERT INTO role (title, salary, department_id) VALUES ("Front End Developer", "200000", 1);
 INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("Matt", "Reynolds", 1, 1);
